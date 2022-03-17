@@ -4,6 +4,9 @@ const url = 'https://www.pravda.com.ua/';
 const headers = {'User-Agent': 'Chrome/51.0.2704.103'};
 var fs = require('fs');
 var outputFilename = './war.json';
+var http = require("http");
+const express = require('express');
+const app = express();
 
 
 rp({url:url, headers: headers})
@@ -17,18 +20,7 @@ rp({url:url, headers: headers})
         warItems.push($('.war_num', html)[i].children[0].data);
     }
 
-    // console.log('this is my stuff: ' + warItems);
-    // console.log(html);
-
-    // let numbersOnly = (val) => {
-    //   if (typeof(val) === 'number') {
-    //     return val;
-    //   }
-    // }
     console.log('warItems: ' + warItems);
-
-    // let numbers = warItems.filter(Number);
-    // console.log('numbers: ' + numbers);
 
     for (let i = 0; i < 13; i++) {
       warItems[i] = warItems[i].replace(/[^0-9.]/g, '');
@@ -45,10 +37,21 @@ rp({url:url, headers: headers})
       } else {
         console.log("JSON saved to " + outputFilename);
       }
-  }); 
+    }); 
+
+    // Defining get request at '/' route
+    app.get('/', function(req, res) {
+      res.json(warItems);
+    });
+      
+    // Setting the server to listen at port 3000
+    app.listen(3000, function(req, res) {
+      console.log("Server is running at port 3000");
+    });
 
     
   })
   .catch(function(err){
     console.log(err);
   });
+
