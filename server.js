@@ -7,6 +7,7 @@ var outputFilename = './war.json';
 var http = require("http");
 const express = require('express');
 const app = express();
+var cors = require('cors')
 
 
 rp({url:url, headers: headers})
@@ -43,6 +44,8 @@ rp({url:url, headers: headers})
     app.get('/', function(req, res) {
       res.json(warItems);
     });
+
+    app.use(cors()); // <---- use cors middleware
       
     // Setting the server to listen at port 3000
     app.listen(process.env.PORT || 3000, function(req, res) {
