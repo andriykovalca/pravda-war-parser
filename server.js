@@ -1,7 +1,7 @@
 const rp = require('request-promise');
 const cheerio = require('cheerio');
 const url = 'https://www.pravda.com.ua/';
-const headers = {'User-Agent': 'Chrome/51.0.2704.103'};
+const headers = {'User-Agent': 'Chrome/101.0.4951'};
 var fs = require('fs');
 var outputFilename = './war.json';
 var http = require("http");
